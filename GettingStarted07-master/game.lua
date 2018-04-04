@@ -49,7 +49,64 @@ local sheetOptions =
         },
     },
 }
+local coronaSheetOptions = {
+	frames = {
+		{   -- 1) corona with lime
+            x = 0,
+            y = 0,
+            width = 116,
+            height = 265
+        },
+	}
+}
+local foamSheetOptions = {
+	frames = {
+		{
+			x = 0,
+			y = 0,
+			width = 188,
+			height = 265
+		}
+	},
+}
+local fruitSheetOptions = {
+	frames = {
+		{
+			x = 0,
+			y = 0,
+			width = 75,
+			height = 75
+		},
+		{
+			x = 85,
+			y = 0,
+			width = 75,
+			height = 75
+		},
+		{
+			x = 170,
+			y = 0,
+			width = 75,
+			height = 75
+		},
+		{
+			x = 255,
+			y = 0,
+			width = 75,
+			height = 75
+		},
+		{
+			x = 340,
+			y = 0,
+			width = 75,
+			height = 75
+		}
+	}
+}
 local objectSheet = graphics.newImageSheet( "gameObjects.png", sheetOptions )
+local coronaWithLimeSheet = graphics.newImageSheet( "corona_with_lime_small.png", coronaSheetOptions)
+local foamSheet = graphics.newImageSheet( "foam.png", foamSheetOptions )
+local fruitSheet = graphics.newImageSheet( "fruit.png", fruitSheetOptions )
 
 -- Initialize variables
 local lives = 3
@@ -80,7 +137,7 @@ end
 
 local function createAsteroid()
 
-	local newAsteroid = display.newImageRect( mainGroup, objectSheet, 1, 102, 85 )
+	local newAsteroid = display.newImageRect( mainGroup, fruitSheet, 1, 102, 85 )
 	table.insert( asteroidsTable, newAsteroid )
 	physics.addBody( newAsteroid, "dynamic", { radius=40, bounce=0.8 } )
 	newAsteroid.myName = "asteroid"
@@ -113,7 +170,7 @@ local function fireLaser()
 	-- Play fire sound!
 	audio.play( fireSound )
 
-	local newLaser = display.newImageRect( mainGroup, objectSheet, 5, 14, 40 )
+	local newLaser = display.newImageRect( mainGroup, foamSheet, 1, 14, 40 )
 	physics.addBody( newLaser, "dynamic", { isSensor=true } )
 	newLaser.isBullet = true
 	newLaser.myName = "laser"
@@ -138,10 +195,14 @@ local function dragShip( event )
 		display.currentStage:setFocus( ship )
 		-- Store initial offset position
 		ship.touchOffsetX = event.x - ship.x
+		ship.touchOffsetY = event.y - ship.y
+		
 
 	elseif ( "moved" == phase ) then
 		-- Move the ship to the new touch position
 		ship.x = event.x - ship.touchOffsetX
+		ship.y = event.y - ship.touchOffsetY
+
 
 	elseif ( "ended" == phase or "cancelled" == phase ) then
 		-- Release touch focus on the ship
@@ -272,11 +333,11 @@ function scene:create( event )
 	sceneGroup:insert( uiGroup )    -- Insert into the scene's view group
 	
 	-- Load the background
-	local background = display.newImageRect( backGroup, "background.png", 800, 1400 )
+	local background = display.newImageRect( backGroup, "beech_background.png", 2354, 1572 )
 	background.x = display.contentCenterX
 	background.y = display.contentCenterY
 	
-	ship = display.newImageRect( mainGroup, objectSheet, 4, 98, 79 )
+	ship = display.newImageRect( mainGroup, coronaWithLimeSheet, 1, 98, 79 )
 	ship.x = display.contentCenterX
 	ship.y = display.contentHeight - 100
 	physics.addBody( ship, { radius=30, isSensor=true } )
