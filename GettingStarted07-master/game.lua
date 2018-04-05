@@ -137,7 +137,9 @@ end
 
 local function createAsteroid()
 
-	local newAsteroid = display.newImageRect( mainGroup, fruitSheet, 1, 102, 85 )
+	local whichFruit = math.random( 5 )
+
+	local newAsteroid = display.newImageRect( mainGroup, fruitSheet, whichFruit, 75, 75 )
 	table.insert( asteroidsTable, newAsteroid )
 	physics.addBody( newAsteroid, "dynamic", { radius=40, bounce=0.8 } )
 	newAsteroid.myName = "asteroid"
@@ -170,7 +172,7 @@ local function fireLaser()
 	-- Play fire sound!
 	audio.play( fireSound )
 
-	local newLaser = display.newImageRect( mainGroup, foamSheet, 1, 14, 40 )
+	local newLaser = display.newImageRect( mainGroup, foamSheet, 1, 19, 27 )
 	physics.addBody( newLaser, "dynamic", { isSensor=true } )
 	newLaser.isBullet = true
 	newLaser.myName = "laser"
@@ -337,7 +339,7 @@ function scene:create( event )
 	background.x = display.contentCenterX
 	background.y = display.contentCenterY
 	
-	ship = display.newImageRect( mainGroup, coronaWithLimeSheet, 1, 98, 79 )
+	ship = display.newImageRect( mainGroup, coronaWithLimeSheet, 1, 116, 265 )
 	ship.x = display.contentCenterX
 	ship.y = display.contentHeight - 100
 	physics.addBody( ship, { radius=30, isSensor=true } )
