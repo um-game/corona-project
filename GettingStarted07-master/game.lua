@@ -113,6 +113,9 @@ local lives = 3
 local score = 0
 local died = false
 
+-- Activate multitouch
+system.activate( "multitouch" ) -- Should allow for movement / firing at the same time
+
 local asteroidsTable = {}
 
 local ship
@@ -349,7 +352,7 @@ function scene:create( event )
 	livesText = display.newText( uiGroup, "Lives: " .. lives, 200, 80, native.systemFont, 36 )
 	scoreText = display.newText( uiGroup, "Score: " .. score, 400, 80, native.systemFont, 36 )
 
-	Runtime:addEventListener( "tap", fireLaser)
+	Runtime:addEventListener("tap", fireLaser)
 	ship:addEventListener( "touch", dragShip )
 
 	explosionSound = audio.loadSound( "audio/explosion.wav" )
