@@ -349,7 +349,7 @@ function scene:create( event )
 	livesText = display.newText( uiGroup, "Lives: " .. lives, 200, 80, native.systemFont, 36 )
 	scoreText = display.newText( uiGroup, "Score: " .. score, 400, 80, native.systemFont, 36 )
 
-	ship:addEventListener( "tap", fireLaser )
+	Runtime:addEventListener( "tap", fireLaser)
 	ship:addEventListener( "touch", dragShip )
 
 	explosionSound = audio.loadSound( "audio/explosion.wav" )
